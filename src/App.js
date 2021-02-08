@@ -2,26 +2,21 @@ import React, { useState } from 'react';
 
 const App = (props) => {
 
-  const [name, setName] = useState(props.name);
-  const [price, setPrice] = useState(props.price);
-
-  const reset = () => {
-    setPrice(props.price)
-    setName(props.name)
-  }
+  const [state, setState] = useState(props);
+  const {name, price} = state;
 
   return (
     <React.Fragment>
       <p className="">
         現在の{name}は、{price}です。
       </p>
-      <button className="" onClick={() => setPrice(price + 1)}>
+      <button className="" onClick={() => setState({...state, price: price + 1})}>
         +1
       </button>
-      <button className="" onClick={() => setPrice(price - 1)}>
+      <button className="" onClick={() => setState({ ...state, price: price - 1 })}>
         -1
       </button>
-      <button className="" onClick={() => reset()}>
+      <button className="" onClick={() => setState(props)}>
         Reset
       </button>
       <input
@@ -31,7 +26,7 @@ const App = (props) => {
         placeholder=""
         className=""
         onChange={
-          (e) => setName(e.target.value)
+          (e) => setState({...state, name: e.target.value})
         }
       />
     </React.Fragment>
